@@ -305,7 +305,7 @@ y2=str2num(get(handles.y2_edit,'String'));
 z1=str2num(get(handles.z1_edit,'String'));
 z2=str2num(get(handles.z2_edit,'String'));
 %colheaders
-colheaders={'dataset','epoch','channel','index','mean','std','median','perc25','perc75','AUC','min','min_X','min_Y','min_Z','max','max_X','max_Y','max_Z','top%','top%_X','top%_Y','top%_Z','bottom%','bottom%_X','bottom%_Y','bottom%_Z','CoG_X','CoG_Y','CoG_Z'};
+colheaders={'dataset','epoch','channel','index','mean','std','median','perc25','perc75','AUC','min','min_X','min_Y','min_Z','max','max_X','max_Y','max_Z','top%','top%_X','top%_Y','top%_Z','bottom%','bottom%_X','bottom%_Y','bottom%_Z','CoG_X','CoG_Y','CoG_Z','amp_CoG'};
 %loop through selected datasets
 for datasetpos=1:length(selected_datasets);
     header=selected_datasets(datasetpos).header;
@@ -467,7 +467,16 @@ for datasetpos=1:length(selected_datasets);
             %'CoG_Y'
             table_data{linepos,28}=CoG_Y;
             %'CoG_Z'
-            table_data{linepos,29}=CoG_Z;            
+            table_data{linepos,29}=CoG_Z;  
+            %amp_CoG
+            cog_dx=round((CoG_X-header.xstart)/header.xstep)+1
+            cog_x2=header.xstart+((cog_dx-1)*header.xstep)
+            cog_dy=round((CoG_Y-header.ystart)/header.ystep)+1;
+            cog_dz=round((CoG_Z-header.zstart)/header.zstep)+1;
+            amp_CoG=data(selected_epochs2(epochpos),selected_channels2(chanpos),indexpos,cog_dz,cog_dy,cog_dx);
+            %'amp_CoG
+            table_data{linepos,30}=amp_CoG;  
+ 
             %inc linepos
             linepos=linepos+1;
             end;
