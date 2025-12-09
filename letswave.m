@@ -32,6 +32,12 @@ addpath([p filesep 'external' filesep 'neurone']);
 addpath([p filesep 'external' filesep 'egi_mff']);
 addpath([p filesep 'external' filesep 'MARA']);
 addpath([p filesep 'plugins']);
+
+a=which('str2double');
+if isempty(a)
+    addpath([p filesep 'external' filesep 'legacy' filesep 'str2double']);
+end;
+
 %experimental
 if isempty(varargin);
 else
